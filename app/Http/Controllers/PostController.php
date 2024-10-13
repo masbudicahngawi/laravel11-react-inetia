@@ -40,33 +40,33 @@ class PostController extends Controller
     }
 
 
-    public function show(Post $post, string $id)
+    public function show(Post $post)
     {
-        return Inertia::render('Post/Show', ['post' => $post]);
+        return Inertia::render('Posts/Show', ['post' => $post]);
     }
 
 
-    public function edit(Post $post, string $id)
+    public function edit(Post $post)
     {
         return Inertia::render('Posts/Edit', ['post' => $post]);
     }
 
-    
-    public function update(Request $request, Post $post, string $id)
+
+    public function update(Request $request, Post $post)
     {
         $request->validate([
             'title' => 'required',
             'content' => 'required',
         ]);
- 
+
         $post->title = $request->title;
         $post->content = $request->content;
         $post->save();
- 
+
         return Redirect::route('posts.index')->with('success', 'Post updated successfully.');
     }
 
-   
+
     public function destroy(Post $post, string $id)
     {
         $post->delete();
